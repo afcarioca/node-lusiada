@@ -12,7 +12,8 @@ router.post('/novoUsuario',UserController.store);
 router.post('/login',UserController.login);
 router.get('/noticia/:id',NoticiaController.show);
 router.get('/noticias',NoticiaController.index);
-router.put('/noticia/:id',NoticiaController.update);
+//router.put('/noticia/:id',NoticiaController.update);
+router.put('/noticia/:id', multer(multerConfig).single('foto') ,NoticiaController.update);
 router.delete('/noticia/:id',NoticiaController.delete);
 router.post('/noticias', multer(multerConfig).single('foto') , NoticiaController.create);
 

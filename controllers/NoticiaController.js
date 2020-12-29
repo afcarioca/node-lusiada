@@ -35,30 +35,40 @@ class NoticiaController{
 
     async update(request, response){
         const { id } = request.params;
-        const {titulo, resumo, conteudo, foto } = request.body;
+       
+
+        const titulo = request.body.titulo;
+        const resumo = request.body.resumo;
+        const conteudo = request.body.conteudo;
+        const foto = request.file['filename'];
+
+        console.log(id);
         console.log(titulo);
+        console.log(resumo);
+        console.log(conteudo);
+        console.log(request.file);
+
+
+
         const noticia = await database('noticia')
         .where('id', id)
         .update(
             {
-                titulo: titulo
-            },
-            {
-                resumo: resumo
-            },
-            {
-                conteudo: conteudo
-            },
-            {
-                foto: foto
+                titulo: titulo,
+                foto: foto,
+                conteudo:conteudo,
+                resumo:resumo
             }
         );
+
+        
 
         if(!noticia){
             return response.status(401).json({error: 'Operation not permitted.'});
         }
 
-       return response.json(id);
+
+       return response.status(200).json({noticia: noticia});
 
     }
 
